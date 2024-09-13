@@ -1,0 +1,1 @@
+alter table if exists "sessions" drop constraint if exists "user_id";

@@ -12,6 +12,7 @@ import (
 
 type Querier interface {
 	CheckForExistingUser(ctx context.Context, email string) (bool, error)
+	CountJWTKeys(ctx context.Context) (int64, error)
 	CreateJWTKey(ctx context.Context, arg CreateJWTKeyParams) (Jwtkey, error)
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)

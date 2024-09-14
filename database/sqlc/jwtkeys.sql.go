@@ -11,6 +11,17 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const countJWTKeys = `-- name: CountJWTKeys :one
+SELECT COUNT(*) FROM jwtkeys
+`
+
+func (q *Queries) CountJWTKeys(ctx context.Context) (int64, error) {
+	row := q.db.QueryRow(ctx, countJWTKeys)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
+}
+
 const createJWTKey = `-- name: CreateJWTKey :one
 insert into jwtkeys (
     public_key,
@@ -56,6 +67,8 @@ func (q *Queries) CreateJWTKey(ctx context.Context, arg CreateJWTKeyParams) (Jwt
 const getActiveKey = `-- name: GetActiveKey :one
 select id, public_key, private_key, algorithm, is_active, expires_at, created_at, updated_at from jwtkeys
 where is_active = $1
+ORDER BY created_at DESC
+LIMIT 1
 `
 
 func (q *Queries) GetActiveKey(ctx context.Context, isActive pgtype.Bool) (Jwtkey, error) {

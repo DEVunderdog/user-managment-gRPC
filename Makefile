@@ -27,5 +27,14 @@ migrate_force:
 migrate_version:
 	migrate -path $(MIGRATION_PATH) -database "$(DB_URL)" version
 
+generate_grpc_code:
+	protoc \
+	--proto_path=proto \
+	--go_out=pb \
+	--go_opt=paths=source_relative \
+	--go-grpc_out=pb \
+	--go-grpc_opt=paths=source_relative \
+	proto/*.proto
+
 
 .PHONY: createdb dropdb migrate_create migrateup migrateup_version migratedown migratedown_version migrate_force migrate_version

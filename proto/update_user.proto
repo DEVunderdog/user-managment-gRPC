@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pb;
+
+import "user.proto";
+
+option go_package = "github.com/DEVunderdog/user-management-gRPC/pb";
+
+message UpdateUserRequest {
+    int64 id = 1;
+    optional string email = 2;
+    optional string password = 3;
+}
+
+message UpdateUserResponse {
+    User user = 1;
+}

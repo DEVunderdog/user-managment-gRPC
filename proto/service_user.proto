@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pb;
+
+import "create_user.proto";
+import "login_user.proto";
+import "update_user.proto";
+
+option go_package = "github.com/DEVunderdog/user-management-gRPC/pb";
+
+service UserManagement {
+
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse){};
+
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){};
+
+    rpc LoginUseer(LoginUserRequest) returns (LoginUserResponse){};
+
+}
